@@ -1,87 +1,100 @@
 
-let usuario = 'Andy07'   // Nombre de usuario
-let contraseña = 2023    // contraseña del usuario
-let intentos = 0         // suma de intentos para ingresar , tiene 3 en total
 
+let productos = []
 
-
-do {  // bucle do para tomar los datos del usuario 
-    let bienvenida = prompt("Bienvenido, ingrese su usuario").toLowerCase()
-    let pass = prompt(`Bienvenido , ingrese su contraseña`).toLowerCase()
-    
-    let validacionUser = bienvenida === usuario.toLowerCase()
-    let validacionPass = +(pass) === contraseña
-    let validarCampo = bienvenida === '' || bienvenida === ' ' || pass === '' || pass === ' '
-    
-    if(validarCampo){  // valida que no pongan string vacio o espacio
-        alert('Ni ingresaste ningun dato en usuario o contraseña')
-    } 
-    if(!(validacionUser && validacionPass)){ // valida que usuario y contraseña sean iguales
-        intentos += 1
-        alert(`Usuario o contraseña incorrecta , llevas ${intentos} intentos de 3`)
-        
-    }
-    if(validacionUser && validacionPass){  // si ambos son iguales te da la bienvenida y muestra el sitio
-        alert(`Bienvenido ${usuario}`)
-        break
+class Producto {
+    constructor(nombre,precio,categoria){
+        this.nombre = nombre
+        this.precio = precio
+        this.categoria = categoria
+        this.vendido = false
     }
 
-    
-} while (intentos < 3); // maxima cantidad de intentos
-
-
-
-function calculadora ( valorA,operador, valorB, ){  // Calculadora que dependiendo los numeros y operadores que uses te da el resultado
-    switch(operador){
-        case '+':
-            return console.log(valorA + valorB)
-
-        case '-' :
-            return console.log(valorA - valorB) 
-
-        case '*' : 
-        return console.log(valorA * valorB) 
-
-        case '/' : 
-        return console.log(valorA / valorB)
+    vender(){
+        this.vendido = true
     }
 }
 
-calculadora(4,'+',8)
+const cuadroLisa = new Producto('Lisa, la reina de los lagartos' , 5000 , 'redondo')
+const cuadroBeemo = new Producto('Beemo , hora de aventura' , 5000 , 'cuadrado')
+const cuadroDexter = new Producto('Dexter, El laboratorio de Dexter' , 5000 , 'horizontal')
+const cuadroGoku = new Producto('Goku chiquito , Dragon Ball Z' , 5000 , 'cuadrado')
+const cuadroPuroHuesos = new Producto('Puro Hueso , Billy y Mandy', 5000 , 'vertical')
+const cuadroMickey = new Producto('Mickey' , 5000 , 'cuadrado')
 
-calculadora(4,'+',11)
-
-calculadora(9,'*',15)
 
 
-function valorCuadro (nombre){   // funcion para saber los precios de los cuadros que estan a la venta
-    switch(nombre.toLowerCase()){
-        case 'mickey':
-            return console.log(`El cuadro de ${nombre} cuesta $5000`)
+productos.push(cuadroLisa , cuadroBeemo , cuadroDexter , cuadroGoku, cuadroPuroHuesos , cuadroMickey)
 
-        case 'homero simpsons' :
-            return console.log(`El cuadro de ${nombre} cuesta $4500`) 
+console.log(productos)
 
-        case 'frida' : 
-        return console.log(`El cuadro de ${nombre} cuesta $6200`) 
+productos.forEach((prod)=>{
+    console.log(prod.nombre)
+})
 
-        case 'boca juniors' : 
-        return console.log(`El cuadro de ${nombre} cuesta $7000`)
+let nombreProductos = productos.map((prod) => {
+   return `${productos.indexOf(prod) + 1} - ${prod.nombre}`
+})
 
-        default :
-           return console.log(`Lo sentimos pero el nombre ingresado : ${nombre} del cuadro no se encuentra disponible o esta mal escrito`)
-    }
+
+
+console.log(nombreProductos)
+
+let consultarPrecio = confirm(`Desea consultar algun precio?`)
+
+while(consultarPrecio){
+
+    let eleccion = +(prompt(`Seleccione un numero para consultar su precio 
+    \n${nombreProductos.join('\n')}
+   `))
+   
+   if(!(isNaN(eleccion)) && eleccion <= nombreProductos.length){
+       let resultadoEleccion = alert(`El cuadro ${productos[eleccion-1].nombre} cuesta: $${productos[eleccion-1].precio}`)
+       switch(eleccion){
+           case 1 : resultadoEleccion
+           break
+           case 2 : resultadoEleccion
+           break
+           case 3 : resultadoEleccion
+           break
+           case 4 : resultadoEleccion
+           break
+           case 5 : resultadoEleccion
+           break
+           case 6 : resultadoEleccion
+           break
+           default : alert(`El número que ingresaste no es correcto`)
+           break
+       }
+      
+   } else {
+       alert(`Error , dato incorrecto`)
+   }
+   consultarPrecio = confirm(`Desea consultar algun otro precio?`)
 }
 
-valorCuadro('Boca Juniors')
-valorCuadro('boca juniors')
-valorCuadro('FRIDA')
 
 
-let cuadros = ['Mickey','Homero Simpsons', 'Frida','Boca Juniors']
+   
 
 
-for (let i = 0; i < cuadros.length; i++) {  // este bucle llama a todos los cuadros del array y aplica la funcion valorCuadro para saber que valor tienen todos
-    valorCuadro(cuadros[i])
+ 
+
+
+
+
+
+function filtrarCuadros(productos , categoria  , valor){
+    return productos.filter( el => {
+     return el[categoria] === valor       
+      
+    })
 }
+
+console.log(filtrarCuadros(productos , 'precio' , 5000))
+console.log(filtrarCuadros(productos , 'categoria' , 'redondo'))
+console.log(filtrarCuadros(productos , 'categoria' , 'cuadrado'))
+
+
+
 
