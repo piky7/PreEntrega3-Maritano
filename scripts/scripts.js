@@ -1,99 +1,81 @@
 
-
-let productos = []
-
-class Producto {
-    constructor(nombre,precio,categoria){
-        this.nombre = nombre
-        this.precio = precio
-        this.categoria = categoria
-        this.vendido = false
+function principal (){
+    
+    let productos = []
+    
+    class Producto {
+        constructor(nombre,precio,categoria,imagen){
+            this.nombre = nombre
+            this.precio = precio
+            this.categoria = categoria
+            this.vendido = false
+            this.imagen = imagen
+            
+        }
+    
+        vender(){
+            this.vendido = true
+        }
     }
+    
+    const cuadroLisa = new Producto('Lisa, la reina de los lagartos' , 5000 , 'redondo','./assets/lisa.webp')
+    const cuadroBeemo = new Producto('Beemo , hora de aventura' , 5000 , 'cuadrado','./assets/beemo.webp')
+    const cuadroDexter = new Producto('Dexter, El laboratorio de Dexter' , 5000 , 'horizontal','./assets/dexter.webp')
+    const cuadroGoku = new Producto('Goku chiquito , Dragon Ball Z' , 5000 , 'cuadrado','./assets/goku.webp')
+    const cuadroPuroHuesos = new Producto('Puro Hueso , Billy y Mandy', 5000 , 'vertical','./assets/puroHueso.webp')
+    
+    
+    
+    
+    productos.push(cuadroLisa , cuadroBeemo , cuadroDexter , cuadroGoku, cuadroPuroHuesos)
+    let valorInput = document.getElementById('buscador')
+    let botonBuscar = document.getElementById('botonBuscar')
+    postearProductos(productos)
+    botonBuscar.addEventListener('click',() =>filtrarCuadros(productos,valorInput))
 
-    vender(){
-        this.vendido = true
-    }
 }
 
-const cuadroLisa = new Producto('Lisa, la reina de los lagartos' , 5000 , 'redondo')
-const cuadroBeemo = new Producto('Beemo , hora de aventura' , 5000 , 'cuadrado')
-const cuadroDexter = new Producto('Dexter, El laboratorio de Dexter' , 5000 , 'horizontal')
-const cuadroGoku = new Producto('Goku chiquito , Dragon Ball Z' , 5000 , 'cuadrado')
-const cuadroPuroHuesos = new Producto('Puro Hueso , Billy y Mandy', 5000 , 'vertical')
-const cuadroMickey = new Producto('Mickey' , 5000 , 'cuadrado')
+principal()
 
 
 
-productos.push(cuadroLisa , cuadroBeemo , cuadroDexter , cuadroGoku, cuadroPuroHuesos , cuadroMickey)
-
-console.log(productos)
-
-productos.forEach((prod)=>{
-    console.log(prod.nombre)
-})
-
-let nombreProductos = productos.map((prod) => {
-   return `${productos.indexOf(prod) + 1} - ${prod.nombre}`
-})
 
 
 
-console.log(nombreProductos)
 
-let consultarPrecio = confirm(`Desea consultar algun precio?`)
-
-while(consultarPrecio){
-
-    let eleccion = +(prompt(`Seleccione un numero para consultar su precio 
-    \n${nombreProductos.join('\n')}
-   `))
-   
-   if(!(isNaN(eleccion)) && eleccion <= nombreProductos.length){
-       let resultadoEleccion = alert(`El cuadro ${productos[eleccion-1].nombre} cuesta: $${productos[eleccion-1].precio}`)
-       switch(eleccion){
-           case 1 : resultadoEleccion
-           break
-           case 2 : resultadoEleccion
-           break
-           case 3 : resultadoEleccion
-           break
-           case 4 : resultadoEleccion
-           break
-           case 5 : resultadoEleccion
-           break
-           case 6 : resultadoEleccion
-           break
-           default : alert(`El número que ingresaste no es correcto`)
-           break
-       }
+function postearProductos(articulos){
+    let contenedorProductos = document.getElementById('contenedor')
+    contenedorProductos.innerHTML = ''
+    articulos.forEach((prod)=>{
       
-   } else {
-       alert(`Error , dato incorrecto`)
-   }
-   consultarPrecio = confirm(`Desea consultar algun otro precio?`)
-}
-
-
-
-   
-
-
- 
-
-
-
-
-
-function filtrarCuadros(productos , categoria  , valor){
-    return productos.filter( el => {
-     return el[categoria] === valor       
-      
+       let tarjetaProducto = document.createElement('div')
+       tarjetaProducto.innerHTML= `
+       <div class="product-card">
+       <img src="${prod.imagen}" alt="">
+       <h4>${prod.nombre}</h4>
+       <div class='contenedorPrecio'>
+         <span>$${prod.precio}</span>
+         <button>+</button>
+       </div>
+     </div>
+     `
+     contenedorProductos.appendChild(tarjetaProducto)
     })
+
 }
 
-console.log(filtrarCuadros(productos , 'precio' , 5000))
-console.log(filtrarCuadros(productos , 'categoria' , 'redondo'))
-console.log(filtrarCuadros(productos , 'categoria' , 'cuadrado'))
+
+
+function filtrarCuadros(productos , input){
+   let cuadrosFiltrados = productos.filter(prod => prod.nombre.toLowerCase().includes(input.value.toLowerCase()) )
+   productos.forEach(el=> console.log(el.nombre))
+
+   console.log(input.value)
+   console.log(cuadrosFiltrados)
+   postearProductos(cuadrosFiltrados)
+}
+
+
 
 
 
