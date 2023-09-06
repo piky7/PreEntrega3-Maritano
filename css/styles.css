@@ -30,6 +30,16 @@ body header nav #buscador {
 body main {
   grid-area: main;
 }
+body main #carrito-contenedor {
+  height: 200px;
+  margin: 20px;
+  border: 2px solid black;
+}
+body main #carrito-contenedor .tarjetaCarrito {
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: space-around;
+}
 body main #contenedor {
   width: 100%;
   display: flex;

@@ -34,9 +34,18 @@ function principal (){
     
     botonBuscar.addEventListener('click',() =>filtrarCuadros(productos,valorInput))
     
+    let botonVaciar = document.getElementById('vaciarBtn')
+    botonVaciar.addEventListener('click', vaciarCarrito)
+    
     
     let carrito = []
+    if(localStorage.getItem('carrito')){
+        carrito = JSON.parse(localStorage.getItem('carrito'))
+    }
+    vaciarCarrito(carrito)
+    renderizarCarrito(carrito)
     postearProductos(productos,carrito)
+    
 
 }
 
@@ -92,8 +101,29 @@ function agregarAlCarrito (articulos,e,carrito){
         })
 
     }
-    console.log(`Agregado ${e.target.id}`)
-    console.log(carrito)
+
+
+    localStorage.setItem('carrito',JSON.stringify(carrito))
+    renderizarCarrito(carrito)
+   
+}
+
+
+function renderizarCarrito (productos){
+ let carritoContenedor = document.getElementById('carrito-contenedor')
+carritoContenedor.innerHTML = ''
+ productos.forEach(producto=>{
+    let tarjetaProductoC = document.createElement('div')
+    tarjetaProductoC.className = 'tarjetaCarrito'
+    tarjetaProductoC.innerHTML = `
+    <p>${producto.nombre}</p>
+    <p>$${producto.precioUnitario}</p>
+    <p>Unidades: ${producto.unidades}
+    <p>$${producto.subTotal}
+    `
+    carritoContenedor.appendChild(tarjetaProductoC)
+ })
+
 }
 
 
@@ -105,6 +135,13 @@ function filtrarCuadros(productos , input,carrito){
    postearProductos(cuadrosFiltrados,carrito)
 
 }
+
+function vaciarCarrito(){
+    localStorage.clear()
+    renderizarCarrito([])
+}
+
+
 
 
 

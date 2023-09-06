@@ -35,7 +35,17 @@ body {
     main{
       grid-area: main;
 
+       #carrito-contenedor{
+        height: 200px;
+        margin: 20px;
+        border: 2px solid black;
 
+        .tarjetaCarrito{
+          background-color: antiquewhite;
+          display: flex;
+          justify-content: space-around;
+        }
+       }
       #contenedor{
         width: 100%;
         display: flex;
