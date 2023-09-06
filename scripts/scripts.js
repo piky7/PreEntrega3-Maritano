@@ -35,16 +35,21 @@ function principal (){
     botonBuscar.addEventListener('click',() =>filtrarCuadros(productos,valorInput))
     
     let botonVaciar = document.getElementById('vaciarBtn')
-    botonVaciar.addEventListener('click', vaciarCarrito)
+    botonVaciar.addEventListener('click',()=> vaciarCarrito(carrito))
+
+    let comprar = document.getElementById('comprar')
+    comprar.addEventListener('click',()=> comprarCarrito(carrito))
     
     
     let carrito = []
     if(localStorage.getItem('carrito')){
         carrito = JSON.parse(localStorage.getItem('carrito'))
     }
-    vaciarCarrito(carrito)
+
+
     renderizarCarrito(carrito)
     postearProductos(productos,carrito)
+    
     
 
 }
@@ -86,7 +91,8 @@ function postearProductos(articulos,carrito){
 function agregarAlCarrito (articulos,e,carrito){
     let productoDeseado = articulos.find(producto => producto.id === Number(e.target.id))
     let productoEnCarrito = carrito.find(producto=> producto.id === productoDeseado.id)
-    console.log(productoDeseado)
+   
+    
 
     if(productoEnCarrito){
       productoEnCarrito.unidades++
@@ -102,9 +108,10 @@ function agregarAlCarrito (articulos,e,carrito){
 
     }
 
-
+    console.log(carrito)
     localStorage.setItem('carrito',JSON.stringify(carrito))
     renderizarCarrito(carrito)
+
    
 }
 
@@ -136,9 +143,25 @@ function filtrarCuadros(productos , input,carrito){
 
 }
 
-function vaciarCarrito(){
+function vaciarCarrito(carrito){
     localStorage.clear()
+     carrito.length = 0
     renderizarCarrito([])
+ 
+}
+
+function comprarCarrito(carrito){
+        localStorage.clear()
+        carrito.length = 0
+        renderizarCarrito(carrito)
+    
+        Swal.fire(
+            'Gracias por su compra!',
+            'Que lo disfrute!',
+            'success'
+          )
+          
+          
 }
 
 
