@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "nombre": "Lisa, la reina de los lagartos",
+        "precio": 5000,
+        "categoria": "redondo",
+        "vendido": false,
+        "imagen": "./assets/lisa.webp"
+    },
+    {
+        "id": 2,
+        "nombre": "Beemo , hora de aventura",
+        "precio": 5000,
+        "categoria": "cuadrado",
+        "vendido": false,
+        "imagen": "./assets/beemo.webp"
+    },
+    {
+        "id": 3,
+        "nombre": "Dexter, El laboratorio de Dexter",
+        "precio": 5000,
+        "categoria": "horizontal",
+        "vendido": false,
+        "imagen": "./assets/dexter.webp"
+    },
+    {
+        "id": 4,
+        "nombre": "Goku chiquito , Dragon Ball Z",
+        "precio": 5000,
+        "categoria": "cuadrado",
+        "vendido": false,
+        "imagen": "./assets/goku.webp"
+    },
+    {
+        "id": 5,
+        "nombre": "Puro Hueso , Billy y Mandy",
+        "precio": 5000,
+        "categoria": "vertical",
+        "vendido": false,
+        "imagen": "./assets/puroHueso.webp"
+    }
+]

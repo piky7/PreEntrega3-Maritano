@@ -1,64 +1,66 @@
-function principal() {
-  let productos = [];
+function principal(productos) {
+  // let productos = [];
 
-  class Producto {
-    constructor(id, nombre, precio, categoria, imagen) {
-      this.id = id;
-      this.nombre = nombre;
-      this.precio = precio;
-      this.categoria = categoria;
-      this.vendido = false;
-      this.imagen = imagen;
-    }
+  // class Producto {
+  //   constructor(id, nombre, precio, categoria, imagen) {
+  //     this.id = id;
+  //     this.nombre = nombre;
+  //     this.precio = precio;
+  //     this.categoria = categoria;
+  //     this.vendido = false;
+  //     this.imagen = imagen;
+  //   }
 
-    vender() {
-      this.vendido = true;
-    }
-  }
+  //   vender() {
+  //     this.vendido = true;
+  //   }
+  // }
 
-  const cuadroLisa = new Producto(
-    1,
-    "Lisa, la reina de los lagartos",
-    5000,
-    "redondo",
-    "./assets/lisa.webp"
-  );
-  const cuadroBeemo = new Producto(
-    2,
-    "Beemo , hora de aventura",
-    5000,
-    "cuadrado",
-    "./assets/beemo.webp"
-  );
-  const cuadroDexter = new Producto(
-    3,
-    "Dexter, El laboratorio de Dexter",
-    5000,
-    "horizontal",
-    "./assets/dexter.webp"
-  );
-  const cuadroGoku = new Producto(
-    4,
-    "Goku chiquito , Dragon Ball Z",
-    5000,
-    "cuadrado",
-    "./assets/goku.webp"
-  );
-  const cuadroPuroHuesos = new Producto(
-    5,
-    "Puro Hueso , Billy y Mandy",
-    5000,
-    "vertical",
-    "./assets/puroHueso.webp"
-  );
+  // const cuadroLisa = new Producto(
+  //   1,
+  //   "Lisa, la reina de los lagartos",
+  //   5000,
+  //   "redondo",
+  //   "./assets/lisa.webp"
+  // );
+  // const cuadroBeemo = new Producto(
+  //   2,
+  //   "Beemo , hora de aventura",
+  //   5000,
+  //   "cuadrado",
+  //   "./assets/beemo.webp"
+  // );
+  // const cuadroDexter = new Producto(
+  //   3,
+  //   "Dexter, El laboratorio de Dexter",
+  //   5000,
+  //   "horizontal",
+  //   "./assets/dexter.webp"
+  // );
+  // const cuadroGoku = new Producto(
+  //   4,
+  //   "Goku chiquito , Dragon Ball Z",
+  //   5000,
+  //   "cuadrado",
+  //   "./assets/goku.webp"
+  // );
+  // const cuadroPuroHuesos = new Producto(
+  //   5,
+  //   "Puro Hueso , Billy y Mandy",
+  //   5000,
+  //   "vertical",
+  //   "./assets/puroHueso.webp"
+  // );
 
-  productos.push(
-    cuadroLisa,
-    cuadroBeemo,
-    cuadroDexter,
-    cuadroGoku,
-    cuadroPuroHuesos
-  );
+  // productos.push(
+  //   cuadroLisa,
+  //   cuadroBeemo,
+  //   cuadroDexter,
+  //   cuadroGoku,
+  //   cuadroPuroHuesos
+  // );
+
+
 
   let valorInput = document.getElementById("buscador");
   let botonBuscar = document.getElementById("botonBuscar");
@@ -81,10 +83,12 @@ function principal() {
   );
 }
 
-principal();
+
+
 
 function postearProductos(articulos, carrito) {
   let contenedorProductos = document.getElementById("contenedor");
+  console.log(articulos)
   contenedorProductos.innerHTML = "";
   articulos.forEach(({ imagen, nombre, precio, id }) => {
     let tarjetaProducto = document.createElement("div");
@@ -184,3 +188,8 @@ function comprarCarrito(carrito) {
   Swal.fire("Gracias por su compra!", "Que lo disfrute!", "success");
 }
 
+
+fetch('./data.json')
+.then((res)=> console.log(res.json()))
+.then((productosbd) => console.log(productosbd))
+.catch(error => console.log(error))
