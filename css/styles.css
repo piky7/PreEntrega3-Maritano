@@ -32,16 +32,28 @@ body main {
 }
 body main #carrito-contenedor {
   height: max-content;
+  background-color: #e1e1e1;
   margin: 20px;
+  padding: 7px;
   border: 2px solid black;
 }
 body main #carrito-contenedor .tarjetaCarrito {
-  background-color: antiquewhite;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
 }
 body main #botones {
   margin-left: 20px;
+  margin-right: 300px;
+  margin-top: 5px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+}
+body main #botones p {
+  background-color: burlywood;
 }
 body main #contenedor {
   width: 100%;
@@ -93,9 +105,32 @@ body main #contenedor .product-card:hover button {
   color: #000;
   background-color: #fff;
 }
+body #contenedor-descripcion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body #contenedor-descripcion #descripcion {
+  background-color: #e1e1e1;
+  height: 70vh;
+  width: 70vh;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+body #contenedor-descripcion #descripcion h1 {
+  text-align: center;
+}
+body #contenedor-descripcion #descripcion p {
+  text-align: center;
+}
 body footer {
   grid-area: footer;
-  background-color: yellow;
+}
+
+#btneliminar {
+  height: 50%;
 }
 
 @media screen and (max-width: 576px) {

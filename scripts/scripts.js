@@ -1,66 +1,4 @@
 function principal(productos) {
-  // let productos = [];
-
-  // class Producto {
-  //   constructor(id, nombre, precio, categoria, imagen) {
-  //     this.id = id;
-  //     this.nombre = nombre;
-  //     this.precio = precio;
-  //     this.categoria = categoria;
-  //     this.vendido = false;
-  //     this.imagen = imagen;
-  //   }
-
-  //   vender() {
-  //     this.vendido = true;
-  //   }
-  // }
-
-  // const cuadroLisa = new Producto(
-  //   1,
-  //   "Lisa, la reina de los lagartos",
-  //   5000,
-  //   "redondo",
-  //   "./assets/lisa.webp"
-  // );
-  // const cuadroBeemo = new Producto(
-  //   2,
-  //   "Beemo , hora de aventura",
-  //   5000,
-  //   "cuadrado",
-  //   "./assets/beemo.webp"
-  // );
-  // const cuadroDexter = new Producto(
-  //   3,
-  //   "Dexter, El laboratorio de Dexter",
-  //   5000,
-  //   "horizontal",
-  //   "./assets/dexter.webp"
-  // );
-  // const cuadroGoku = new Producto(
-  //   4,
-  //   "Goku chiquito , Dragon Ball Z",
-  //   5000,
-  //   "cuadrado",
-  //   "./assets/goku.webp"
-  // );
-  // const cuadroPuroHuesos = new Producto(
-  //   5,
-  //   "Puro Hueso , Billy y Mandy",
-  //   5000,
-  //   "vertical",
-  //   "./assets/puroHueso.webp"
-  // );
-
-  // productos.push(
-  //   cuadroLisa,
-  //   cuadroBeemo,
-  //   cuadroDexter,
-  //   cuadroGoku,
-  //   cuadroPuroHuesos
-  // );
-
-
 
   let valorInput = document.getElementById("buscador");
   let botonBuscar = document.getElementById("botonBuscar");
@@ -71,7 +9,7 @@ function principal(productos) {
   let comprar = document.getElementById("comprar");
   comprar.addEventListener("click", () => comprarCarrito(carrito));
 
-  let carrito = [];
+   carrito = [];
   if (localStorage.getItem("carrito")) {
     carrito = JSON.parse(localStorage.getItem("carrito"));
   }
@@ -81,14 +19,16 @@ function principal(productos) {
   botonBuscar.addEventListener("click", () =>
     filtrarCuadros(productos, valorInput, carrito)
   );
+ 
 }
 
-
-
+let btnEliminarProducto = document.querySelectorAll('.btneliminar')
+let total = document.querySelector('.total')
+let carrito = []
 
 function postearProductos(articulos, carrito) {
   let contenedorProductos = document.getElementById("contenedor");
-  console.log(articulos)
+ 
   contenedorProductos.innerHTML = "";
   articulos.forEach(({ imagen, nombre, precio, id }) => {
     let tarjetaProducto = document.createElement("div");
@@ -134,7 +74,7 @@ function agregarAlCarrito(articulos, e, carrito) {
     });
   }
 
-  console.log(carrito);
+
   localStorage.setItem("carrito", JSON.stringify(carrito));
   renderizarCarrito(carrito);
   Toastify({
@@ -149,17 +89,53 @@ function agregarAlCarrito(articulos, e, carrito) {
 function renderizarCarrito(productos) {
   let carritoContenedor = document.getElementById("carrito-contenedor");
   carritoContenedor.innerHTML = "";
-  productos.forEach(({ nombre, precioUnitario, unidades, subTotal }) => {
+  productos.forEach(({ nombre, precioUnitario, unidades, subTotal, id }) => {
     let tarjetaProductoC = document.createElement("div");
     tarjetaProductoC.className = "tarjetaCarrito";
     tarjetaProductoC.innerHTML = `
     <p>${nombre}</p>
     <p>$${precioUnitario}</p>
-    <p>Unidades: ${unidades}
-    <p>$${subTotal}
+    <p>Unidades: ${unidades}</p>
+    <p>$${subTotal}</p>
+    <button class='btneliminar' id='${id}'>X</button>
     `;
     carritoContenedor.appendChild(tarjetaProductoC);
   });
+  actualizarBotonesEliminar()
+  actualizarTotal(carrito)
+
+}
+
+function actualizarBotonesEliminar(){
+  btnEliminarProducto = document.querySelectorAll('.btneliminar')
+ 
+
+  btnEliminarProducto.forEach(btn => {
+    btn.addEventListener('click',(e)=> eliminarProductoCarrito(e,carrito))
+  })
+}
+
+function eliminarProductoCarrito(e,carrito){
+  let idBoton = e.currentTarget.id
+ 
+  const index = carrito.findIndex(producto => producto.id === idBoton)
+  carrito.splice(index,1)
+  
+  Toastify({
+
+    text: "Producto eliminado",
+    
+    duration: 2000
+    
+    }).showToast();
+  renderizarCarrito(carrito)
+}
+
+function actualizarTotal(carrito){
+  
+
+  let totalCarrito = carrito.reduce((acc,producto)=> acc + (producto.precioUnitario * producto.unidades),0)
+  total.innerText = `$ ${totalCarrito}`
 }
 
 function filtrarCuadros(productos, input, carrito) {
@@ -167,8 +143,7 @@ function filtrarCuadros(productos, input, carrito) {
     prod.nombre.toLowerCase().includes(input.value.toLowerCase())
   );
   productos.forEach((el) => console.log(el.nombre));
-  console.log(input.value);
-  console.log(cuadrosFiltrados);
+
   postearProductos(cuadrosFiltrados, carrito);
 }
 
@@ -180,6 +155,7 @@ function vaciarCarrito(carrito) {
 
 }
 
+
 function comprarCarrito(carrito) {
   localStorage.clear();
   carrito.length = 0;
@@ -189,7 +165,14 @@ function comprarCarrito(carrito) {
 }
 
 
-fetch('./data.json')
-.then((res)=> console.log(res.json()))
-.then((productosbd) => console.log(productosbd))
-.catch(error => console.log(error))
+async function pedirInfo(){
+  try{
+    const respuesta = await fetch('./data.json')
+    const productos = await respuesta.json()
+    principal(productos)
+  } catch(error){
+    console.log(error)
+  }
+}
+
+pedirInfo()

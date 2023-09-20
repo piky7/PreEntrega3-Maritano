@@ -35,18 +35,33 @@ body {
 
     #carrito-contenedor {
       height: max-content;
+      background-color: #e1e1e1;
       margin: 20px;
+      padding: 7px;
       border: 2px solid black;
 
       .tarjetaCarrito {
-        background-color: antiquewhite;
+        
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        align-items: center;
       }
     }
 
     #botones{
       margin-left: 20px;
+      margin-right: 300px;
+      margin-top: 5px;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      align-self: center;
+      text-align: center;
+      
+      p{
+        background-color: burlywood;
+      }
+ 
     }
     #contenedor {
       width: 100%;
@@ -99,12 +114,40 @@ body {
         background-color: #fff;
       }
     }
+
+   
+  }
+
+  #contenedor-descripcion{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+    #descripcion{
+      background-color: #e1e1e1;
+      height: 70vh;
+      width: 70vh;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+
+      h1{
+        text-align: center;
+      }
+      p{
+        text-align: center;
+      }
+    }
   }
 
   footer {
     grid-area: footer;
-    background-color: yellow;
   }
+}
+
+#btneliminar{
+  height: 50%;
+
 }
 
 //
