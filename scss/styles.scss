@@ -32,6 +32,7 @@ body {
 
   main {
     grid-area: main;
+    
 
     #carrito-contenedor {
       height: max-content;
@@ -43,8 +44,9 @@ body {
       .tarjetaCarrito {
         
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        gap: 15px;
       }
     }
 
@@ -64,12 +66,22 @@ body {
  
     }
     #contenedor {
-      width: 100%;
+      
       display: flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
       padding: 5px;
+      // display: grid;
+      // grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      gap: 2px;
+      padding: 5px;
+      align-content: flex-end;
+
+      .tarjetaIndividual{
+        display: flex;
+        justify-content: center;
+      }
 
       .product-card {
         max-width: 12em;
@@ -152,8 +164,24 @@ body {
 
 //
 
-@media screen and (max-width: 576px) {
-  .product-card {
-    font-size: 0.9em;
+
+@media screen and (max-width: 600px){
+ body{
+  display: flex;
+  flex-direction: column;
+  
+  #contenedor{
+
+    .tarjetaIndividual{
+      .product-card{
+        h4{
+          font-size: 1rem;
+        }
+        .contenedorPrecio{
+          font-size: 0.9rem;
+        }
+      }
+    }
   }
+ }
 }
